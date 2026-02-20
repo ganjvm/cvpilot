@@ -39,5 +39,8 @@ build/
 .claude/
 CLAUDE.md
 
+### Test fixtures ###
+src/test/resources/resume/
+
 ### PRD (internal docs) ###
 PRD_*.md
