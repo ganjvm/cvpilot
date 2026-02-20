@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.gan.cvpilot.exception.AuthenticationException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -16,14 +15,10 @@ public class GoogleTokenService {
 
     private final RestClient restClient;
     private final ObjectMapper objectMapper;
-    private final String clientId;
 
-    public GoogleTokenService(
-            @Value("${cvpilot.google.client-id}") String clientId,
-            ObjectMapper objectMapper) {
+    public GoogleTokenService(ObjectMapper objectMapper) {
         this.restClient = RestClient.create();
         this.objectMapper = objectMapper;
-        this.clientId = clientId;
     }
 
     public GoogleUserInfo verifyAccessToken(String accessToken) {
@@ -40,36 +35,12 @@ public class GoogleTokenService {
             String email = userInfo.get("email").asText();
             String name = userInfo.has("name") ? userInfo.get("name").asText() : null;
 
-            // Verify the token was issued for our app
-            validateTokenAudience(accessToken);
-
             return new GoogleUserInfo(googleId, email, name);
         } catch (AuthenticationException e) {
             throw e;
         } catch (Exception e) {
             log.error("Failed to verify Google access token", e);
             throw new AuthenticationException("Failed to authenticate with Google.");
-        }
-    }
-
-    private void validateTokenAudience(String accessToken) {
-        try {
-            String response = restClient.get()
-                    .uri("https://oauth2.googleapis.com/tokeninfo?access_token=" + accessToken)
-                    .retrieve()
-                    .body(String.class);
-
-            JsonNode tokenInfo = objectMapper.readTree(response);
-            String audience = tokenInfo.has("aud") ? tokenInfo.get("aud").asText() : null;
-
-            if (!clientId.equals(audience)) {
-                throw new AuthenticationException("Token was not issued for this application.");
-            }
-        } catch (AuthenticationException e) {
-            throw e;
-        } catch (Exception e) {
-            log.error("Failed to validate Google token audience", e);
-            throw new AuthenticationException("Failed to validate Google token.");
         }
     }
 }
