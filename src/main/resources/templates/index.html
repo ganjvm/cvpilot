@@ -48,13 +48,18 @@
         </div>
 
         <div class="hero-visual reveal reveal-delay-2">
-            <div class="score-ring-wrapper">
+            <div class="score-ring-wrapper" data-carousel-active="true">
                 <svg class="score-ring-svg" viewBox="0 0 300 300">
                     <defs>
-                        <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <linearGradient id="scoreGradientGreen" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#22e88b"/>
                             <stop offset="50%" stop-color="#18c5a8"/>
                             <stop offset="100%" stop-color="#1ab4e8"/>
+                        </linearGradient>
+                        <linearGradient id="scoreGradientOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#f59e0b"/>
+                            <stop offset="50%" stop-color="#f97316"/>
+                            <stop offset="100%" stop-color="#ef4444"/>
                         </linearGradient>
                     </defs>
                     <circle class="score-ring-track" cx="150" cy="150" r="140"/>
@@ -66,16 +71,23 @@
                 </div>
 
                 <div class="floating-tag tag-strength">
-                    <svg style="width:14px;height:14px;margin-right:6px;vertical-align:-2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
-                    3 года опыта в React
+                    <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>
+                    <span class="tag-text"></span>
                 </div>
                 <div class="floating-tag tag-gap">
-                    <svg style="width:14px;height:14px;margin-right:6px;vertical-align:-2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 9v4m0 4h.01"/></svg>
-                    Нет опыта CI/CD
+                    <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 9v4m0 4h.01"/></svg>
+                    <span class="tag-text"></span>
                 </div>
                 <div class="floating-tag tag-tip">
-                    <svg style="width:14px;height:14px;margin-right:6px;vertical-align:-2px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83"/></svg>
-                    Добавьте ключевые слова
+                    <svg class="tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83"/></svg>
+                    <span class="tag-text"></span>
+                </div>
+
+                <!-- Carousel dots -->
+                <div class="carousel-dots">
+                    <button class="carousel-dot active" data-slide="0" aria-label="Пример 1"></button>
+                    <button class="carousel-dot" data-slide="1" aria-label="Пример 2"></button>
+                    <button class="carousel-dot" data-slide="2" aria-label="Пример 3"></button>
                 </div>
             </div>
         </div>
