@@ -1,0 +1,28 @@
+services:
+  app:
+    profiles: ["prod"]
+    build: .
+    ports:
+      - '8080:8080'
+    env_file: .env
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/cvpilot
+      - DATABASE_USERNAME=cvpilot
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
+      - DOCKER_COMPOSE_ENABLED=false
+    depends_on:
+      - postgres
+
+  postgres:
+    image: 'postgres:17'
+    environment:
+      - POSTGRES_DB=cvpilot
+      - POSTGRES_USER=cvpilot
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
